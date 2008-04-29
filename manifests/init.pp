@@ -20,6 +20,7 @@ class syslog::base {
 
     service{syslog:
         ensure => running,
+        enable => true,
         hasstatus => true,
         require => Package[syslog],
     }
