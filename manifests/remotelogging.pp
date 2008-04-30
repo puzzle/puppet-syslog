@@ -7,7 +7,7 @@
 
 # ToDo: This should be managed all in own
 # config file
-class syslog::remotelogging {
+class syslog::remotelogging inherits syslog {
 
     $real_remote_logging_host = $remote_logging_host ? {
         '' => 'cairoi.ww2.ch',
