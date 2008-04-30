@@ -15,7 +15,7 @@ class syslog::pbpfixes {
     }
 
     exec{console_logging:
-        command => 'sed -i "s@\(KLOGD_OPTIONS=\)\"\(.*\)\"@\1\"\2 -c 4\"@g" etc/sysconfig/syslog',
+        command => 'sed -i "s@\(KLOGD_OPTIONS=\)\"\(.*\)\"@\1\"\2 -c 4\"@g" /etc/sysconfig/syslog',
         unless => 'grep -q "KLOGD_OPTIONS.*-c 4" /etc/sysconfig/syslog',
         require => Package[syslog],
         notify => Service[syslog],
