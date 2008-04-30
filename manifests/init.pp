@@ -26,7 +26,7 @@ class syslog::base {
     }
 }
 
-class syslog::centos inherits {
+class syslog::centos inherits syslog::base {
     Package[syslog]{
         name => 'sysklogd',
     }
