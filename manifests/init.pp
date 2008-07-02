@@ -26,11 +26,11 @@ class syslog::base {
     }
 
     file{'/etc/syslog.conf':
-        source => [ "puppet://$server/files/syslog/config/${fqdn}/syslog", 
-                    "puppet://$server/files/syslog/config/syslog.${opratingsystem}",
-                    "puppet://$server/files/syslog/config/syslog", 
-                    "puppet://$server/syslog/config/syslog.${opratingsystem}",
-                    "puppet://$server/syslog/config/syslog"],
+        source => [ "puppet://$server/files/syslog/config/${fqdn}/syslog.conf", 
+                    "puppet://$server/files/syslog/config/syslog.conf.${opratingsystem}",
+                    "puppet://$server/files/syslog/config/syslog.conf", 
+                    "puppet://$server/syslog/config/syslog.conf.${opratingsystem}",
+                    "puppet://$server/syslog/config/syslog.conf"],
         notify => Service['syslog'],
         require => Package['syslog'],
         owner => root, group => 0, mode => 0644;
