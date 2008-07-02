@@ -50,7 +50,7 @@ class syslog::centos inherits syslog::base {
         name => 'sysklogd',
     }
 
-    files{'/etc/sysconfig/syslog':
+    file{'/etc/sysconfig/syslog':
         source => [ "puppet://$server/files/syslog/config/CentOS/${fqdn}/syslog", 
                     "puppet://$server/files/syslog/config/CentOS/syslog.${lsbdistrelease}", 
                     "puppet://$server/files/syslog/config/CentOS/syslog", 
