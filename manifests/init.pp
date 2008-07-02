@@ -25,11 +25,22 @@ class syslog::base {
         ensure => present,
     }
 
+    file{'/etc/syslog.conf':
+        source => [ "puppet://$server/files/syslog/config/${fqdn}/syslog", 
+                    "puppet://$server/files/syslog/config/syslog.${opratingsystem}",
+                    "puppet://$server/files/syslog/config/syslog", 
+                    "puppet://$server/syslog/config/syslog.${opratingsystem}",
+                    "puppet://$server/syslog/config/syslog"],
+        notify => Service['syslog'],
+        require => Package['syslog'],
+        owner => root, group => 0, mode => 0644;
+    }
+
     service{syslog:
         ensure => running,
         enable => true,
         hasstatus => true,
-        require => Package[syslog],
+        require => Package['syslog'],
     }
 }
 
@@ -37,5 +48,14 @@ class syslog::centos inherits syslog::base {
     Package[syslog]{
         name => 'sysklogd',
     }
-    include syslog::pbpfixes
+
+    files{'/etc/sysconfig/syslog':
+        source => [ "puppet://$server/files/syslog/config/CentOS/${fqdn}/syslog", 
+                    "puppet://$server/files/syslog/config/CentOS/syslog.${lsbdistrelease}", 
+                    "puppet://$server/files/syslog/config/CentOS/syslog", 
+                    "puppet://$server/files/config/CentOS/syslog.${lsbdistrelease}", 
+                    "puppet://$server/syslog/config/CentOS/syslog" ],
+        notify => Service['syslog'],
+        owner => root, group => 0, mode => 0644;
+    }
 }
